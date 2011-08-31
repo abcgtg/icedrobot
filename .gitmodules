@@ -1,15 +1,15 @@
 [submodule "android-base"]
 path = android-base
-url = android-base
+url =  /home/neugens/work_space/icedrobot2/icedrobot/android-base
 
 [submodule "android-code"]
 path = android-core
-url = android-core
+url = /home/neugens/work_space/icedrobot2/icedrobot/android-core
 
 [submodule "apache-http"]
 path = apache-http
-url = apache-http
+url = /home/neugens/work_space/icedrobot2/icedrobot/apache-http
 
 [submodule "nist-sip"]
 path = nist-sip
-url = nist-sip
+url = /home/neugens/work_space/icedrobot2/icedrobot/nist-sip
