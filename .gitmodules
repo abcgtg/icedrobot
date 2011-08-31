@@ -1,0 +1,15 @@
+[submodule "android-base"]
+path = android-base
+url = android-base
+
+[submodule "android-code"]
+path = android-core
+url = android-core
+
+[submodule "apache-http"]
+path = apache-http
+url = apache-http
+
+[submodule "nist-sip"]
+path = nist-sip
+url = nist-sip
