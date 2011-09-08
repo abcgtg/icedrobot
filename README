@@ -1,0 +1,30 @@
+Welcome to the IcedRobot project!
+
+This is the higher level source repository, if you got this tree from ika,
+then you don't need anything else to start working, otherwise you may
+need to download the rest of the sources (the directories you see may
+be empty placeholders).
+
+The easiest way to grab the whole source distribution is to use ika:
+
+$ ika init --dest=icedrobot-dev
+
+where dest can really be anything you like of course.
+
+You need ika to build some of the resource files (namely the logtags classes),
+but if you don't like ika (but I can't seriously believe that!) then you can
+still manually grab all the sub repositories, you will find the list in
+the .ika.properties file in this same directory.
+
+To build you can use the makefile:
+
+$ make
+
+This will build all.
+
+You need ika as said before, but also a couple of tools from the Android SDK
+that we still don't compile and distribute ourselves: aidl aapt.
+
+They need to be in the path.
+
+Have fun!
