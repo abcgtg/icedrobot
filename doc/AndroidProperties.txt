@@ -1,0 +1,42 @@
+* Android Root, Android Data, External Storage and Download Cache
+
+Those are an evironment variable. IcedRobot configures all the env variable
+in an hash map accessed from the IcedTools class.
+
+The values are defined as:
+
+ANDROID_ROOT = System.getProperty("user.home") +
+	       File.separatorChar + ".icedrobot" +
+	       File.separatorChar + "system";
+
+ANDROID_DATA = System.getProperty("user.home") +
+	       File.separatorChar + ".icedrobot" +
+	       File.separatorChar + "data";
+similarly:
+
+ANDROID_SECURE_DATA = ANDROID_DATA + sep + "secure";
+EXTERNAL_STORAGE = ANDROID_DATA + sep + "sdcard";
+DOWNLOAD_CACHE = System.getProperty("user.home") +
+	       File.separatorChar + ".icedrobot" +
+	       File.separatorChar + "cache");  
+
+* Factory mode
+
+Defines the factory mode of the devices. For IcedRobot is always 0.
+It seems that is always set in Android to some value, it's used in
+SystemServer, required patching in IcedRobot to use the empty default
+(the string is converted to a number later in the code):
+
+String factoryTestStr = SystemProperties.get("ro.factorytest", "");
+
+* IcedRobot specifics
+
+the following properties are used for debug purpouse, to trace unimplemented
+methods:
+ 
+   private static final boolean showStackTrace =
+       !Boolean.getBoolean("icedrobot.debug.trace.notrace");
+    
+   private static final boolean showWarning =
+       !Boolean.getBoolean("icedrobot.debug.trace.disable");
+
