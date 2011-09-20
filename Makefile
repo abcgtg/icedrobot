@@ -1,7 +1,7 @@
 # IcedRobot simple Makefile
 
 .PHONY: icedrobot
-icedorobot: core base http sip
+icedorobot: http sip core base
 
 .PHONY: core
 core:
