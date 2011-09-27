@@ -1,7 +1,16 @@
 # IcedRobot simple Makefile
 
+RM = rm -f
+
 .PHONY: icedrobot
-icedorobot: http sip core base
+icedorobot: clean-all http sip core base
+
+.PHONY: clean-all
+clean-all:
+	cd android-core && \
+	$(RM) generated-aidl/* && \
+	$(RM) generated-src/* && \
+	$(RM) generated-res/*
 
 .PHONY: core
 core:
