@@ -27,15 +27,80 @@ that we still don't compile and distribute ourselves: aidl aapt.
 
 They need to be in the path.
 
-The final gotcha, you need dbus-java installed, but there is no dbus-java
+Additional Software
+-------------------
+
+As specified in the previous paragraph, you need ika installed and on the path
+to build icedrobot correctly.
+
+You also need a valid Android SDK, the exact version is not important though,
+since we only use two tools, aidl and aapt, but if you want to be sure to be
+compatible, then you need to grab an SDL level that matches the IcedRobot one
+(which at the time of this writing API level 10 plus some of the OpenSource
+bits from Level 11).
+
+You may also want to download and install Daneel, the IcedRobot Dalvik
+Bytecode Interpreter, but this is not needed to use IcedRobot, since the
+class library compiles to standard Java ByteCode.
+
+We use maven to build (yeah, there is one Makefile for convenience, but it
+just launches maven and does some cleanup for you at the moment).
+
+Maven downloads for you most of the dependencies, but there are some that
+need to be imported manually. We are working on some solution to make the
+process easier, but for the time being, here follow some instructions you
+may follow. You will probably need to adapt them to your specific environment,
+and we would like to know your experiences about this.
+
+First, you need dbus-java installed, but there is no dbus-java
 repository, so you need to manually install it before compiling icedobot.
 
 For example, this command this works on Fedora 15, but it should work on
-most other Linux distribution (it won't work on Windows, and probaly
-needs tweaking for OSX as well):
+most other Linux distribution:
 
 $ mvn install:install-file -Dfile=/usr/share/java/dbus-java/dbus.jar \
   -DgroupId=org.freedesktop.dbus -DartifactId=dbus-java -Dversion=2.7.4 \
   -Dpackaging=jar
+
+On Ubuntu 11.10 the path is a bit different:
+
+$ mvn install:install-file -Dfile=/usr/share/java/dbus-bin.jar \
+  -DgroupId=org.freedesktop.dbus -DartifactId=dbus-java -Dversion=2.7.4 \
+  -Dpackaging=jar
+
+On the Mac is a little bit trickier. Although you need a similar command,
+fist you need to download and install dbus and compile dbus java yourself,
+either from the source or via some tool like Brew or MacPorts. Dbus Java
+need libmatthew which has some issues to compile correctly.
+
+A native Mac port of the binder that uses the Notification APi is under way,
+but for the time being, just ask on the mailing list if you have issues with
+it. If you don't need to use Parcels and Binders, you can just grab any
+DBus-java jar and don't care about the native code, since internally all the
+parcels are passed directly to the associated "listeners" if the listener
+resides in the same VM.
+
+Finally, you need to install BlueCove, a Free implementation of the jsr82
+(for Bluetooth). Please, follow the instructions on the BlueCove website,
+but as of this writing to get the sources and compile them just do this:
+
+svn checkout http://bluecove.googlecode.com/svn/trunk/ bluecove
+cd bluecove
+mvn clean install -Dmaven.test.skip=true
+
+Once you have the jars compiler, you need to install them as maven dependecies,
+the same way as the dbus one:
+
+$ mvn install:install-file -Dfile=./bluecove/target/bluecove-2.1.1-SNAPSHOT.jar \
+  -DgroupId=org.freedesktop.dbus -DartifactId=bluecove -Dversion=2.1.1-SNAPSHOT \
+  -Dpackaging=jar
+
+$ mvn install:install-file -Dfile=./bluecove-gpl/target/bluecove-gpl-2.1.1-SNAPSHOT.jar \
+    -DgroupId=org.freedesktop.dbus -DartifactId=bluecove-gpl -Dversion=2.1.1-SNAPSHOT \
+    -Dpackaging=jar
+
+The Linux version uses bluez and needs the bluecove-gpl package as well,
+the Mac version uses the native OSX bluetooth stack which is integrated into
+the main jar already, so the dependency on bluecove-gpl is optional.
 
 Have fun!
